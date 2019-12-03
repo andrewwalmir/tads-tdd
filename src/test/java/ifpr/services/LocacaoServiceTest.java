@@ -8,6 +8,7 @@ import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -115,8 +116,8 @@ public class LocacaoServiceTest {
 
         //cenario
         Usuario usuario = new Usuario("Matielo");
-        Filme filme1 = new Filme("Os Vingadores", 5.0, 2);
-        Filme filme2 = new Filme("A Liga da Justiça", 5.0, 1);
+        Filme filme1 = new Filme("Os Vingadores", 5.0, 1);
+        Filme filme2 = new Filme("A Liga da Justiça", 5.0, 0);
 
         List<Filme> filmes = new ArrayList<Filme>();
         filmes.add(filme1);
@@ -125,15 +126,37 @@ public class LocacaoServiceTest {
         //acao
         try {
             service.alugarFilme(usuario, filmes);
-            fail("");
         } catch (Exception e) {
-            assertTrue(e.getMessage().equals("deu ruim"));
+            e.printStackTrace();
         }
     }
 
     @Test
     public void descontosNosFilmes(){
 
+        //cenario
+        Usuario usuario = new Usuario("Matielo");
+        Filme filme1 = new Filme("Os Vingadores", 5.0, 2);
+        Filme filme2 = new Filme("A Liga da Justiça", 4.0, 1);
+        Filme filme3 = new Filme("O Homem de Ferro", 3.0, 5);
+        Filme filme4 = new Filme("Mulher Maravilha", 1.0, 3);
+        Filme filme5 = new Filme("O Poderoso Chefão", 2.0, 6);
+        Filme filme6 = new Filme("Batman", 6.0, 0);
+
+        List<Filme> filmes = new ArrayList<Filme>();
+        filmes.add(filme1);
+        filmes.add(filme2);
+        filmes.add(filme3);
+        filmes.add(filme4);
+        filmes.add(filme5);
+        filmes.add(filme6);
+
+        //acao
+        try {
+            service.alugarFilme(usuario, filmes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
