@@ -155,9 +155,12 @@ public class LocacaoServiceTest {
 
         //acao
         try {
-            Locacao locacao = service.alugarFilme(usuario, filmes);
-            // System.out.println(locacao.toString());
-        } catch (Exception e) {
+            service.alugarFilme(usuario, filmes);
+
+            // Método de descontos
+            System.out.println(service.ValorTotalLocacao(6, 21.0, 6.0));
+
+         } catch (Exception e) {
             e.printStackTrace();
         }
     }

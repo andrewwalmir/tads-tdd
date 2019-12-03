@@ -40,6 +40,7 @@ public class LocacaoService {
         locacao.setFilmes(filmes);
         locacao.setDataLocacao(new Date());
         locacao.setDataDevolucao(DataUtils.adicionarDias(new Date(), 1));
+        // Chama o método Valor Total da Locação, que calcula os descontos, caso haja
         locacao.setValor(ValorTotalLocacao(qtdFilmes, precoTotal, valorUltimoFilme));
 
         //persistir

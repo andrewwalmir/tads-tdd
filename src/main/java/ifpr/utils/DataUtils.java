@@ -24,7 +24,6 @@ public class DataUtils {
         calendar.add(DAY_OF_MONTH, dias);
         // Testar se for Domingo e Adicionar um dia
         if(verificarDiaSemana(calendar.getTime(), 1)){
-            //calendar.setTime(data);
             calendar.add(DAY_OF_MONTH, 1);
         }
         return calendar.getTime();
