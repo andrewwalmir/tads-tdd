@@ -17,10 +17,10 @@ public class LocacaoService {
         Filme ultimoFilme = filmes.get(filmes.size() - 1);
 
         // Pegar valor do último filme
-        Double valorUltimoFime = ultimoFilme.getPreco();
+        Double valorUltimoFilme = ultimoFilme.getPreco();
 
         Double precoTotal = 0.0;
-        int x = 0;
+        int qtdFilmes = 0;
 
         for (Filme filme : filmes) {
             // Testar estoque
@@ -32,37 +32,7 @@ public class LocacaoService {
             precoTotal += filme.getPreco();
 
             // Quantidade de Filmes
-            x++;
-        }
-
-        Double valorFinal = 0.0;
-        Double valorComDesconto = 0.0;
-
-        switch (x) {
-            case 3:
-                // 25% no terceiro Filme;
-                valorFinal = precoTotal - valorUltimoFime;
-                valorComDesconto = valorUltimoFime * 0.75;
-                valorFinal = valorFinal + valorComDesconto;
-                break;
-            case 4:
-                // 50% no quarto Filme;
-                valorFinal = precoTotal - valorUltimoFime;
-                valorComDesconto = valorUltimoFime * 0.50;
-                valorFinal = valorFinal + valorComDesconto;
-                break;
-            case 5:
-                // 75% no quinto Filme;
-                valorFinal = precoTotal - valorUltimoFime;
-                valorComDesconto = valorUltimoFime * 0.25;
-                valorFinal = valorFinal + valorComDesconto;
-                break;
-            case 6:
-                // 100% no sexto Filme;
-                valorFinal = precoTotal - valorUltimoFime;
-                break;
-            default:
-                valorFinal = precoTotal;
+            qtdFilmes++;
         }
 
         Locacao locacao = new Locacao();
@@ -70,11 +40,43 @@ public class LocacaoService {
         locacao.setFilmes(filmes);
         locacao.setDataLocacao(new Date());
         locacao.setDataDevolucao(DataUtils.adicionarDias(new Date(), 1));
-        locacao.setValor(valorFinal);
+        locacao.setValor(ValorTotalLocacao(qtdFilmes, precoTotal, valorUltimoFilme));
 
         //persistir
 
         return locacao;
     }
+    public Double ValorTotalLocacao(int qtdFilmes, Double precoTotal, Double valorUltimoFilme){
+        Double valorFinal = 0.0;
+        Double valorComDesconto = 0.0;
 
+        switch (qtdFilmes) {
+            case 3:
+                // 25% no terceiro Filme;
+                valorFinal = precoTotal - valorUltimoFilme;
+                valorComDesconto = valorUltimoFilme * 0.75;
+                valorFinal = valorFinal + valorComDesconto;
+                break;
+            case 4:
+                // 50% no quarto Filme;
+                valorFinal = precoTotal - valorUltimoFilme;
+                valorComDesconto = valorUltimoFilme * 0.50;
+                valorFinal = valorFinal + valorComDesconto;
+                break;
+            case 5:
+                // 75% no quinto Filme;
+                valorFinal = precoTotal - valorUltimoFilme;
+                valorComDesconto = valorUltimoFilme * 0.25;
+                valorFinal = valorFinal + valorComDesconto;
+                break;
+            case 6:
+                // 100% no sexto Filme;
+                valorFinal = precoTotal - valorUltimoFilme;
+                break;
+            default:
+                valorFinal = precoTotal;
+        }
+
+        return valorFinal;
+    }
 }
